@@ -1,0 +1,59 @@
+  <%- include('partials/header.ejs') %>
+
+  <div class="container-fluid">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Job Position</th>
+          <th scope="col">Company</th>
+          <th scope="col">Status</th>
+          <th scope="col">Applied On</th>
+          <th scope="col">Job Description</th>
+           <th scope="col">Edit</th>
+          <th scope="col">Delete</th>
+         </tr>
+      </thead>
+      <tbody>
+        <% 
+          // Sort the jobs array based on the status (applied first, rejected last)
+          const sortedJobs = jobs.sort((a, b) => {
+            if (a.status === 'Applied' && b.status !== 'Applied') {
+              return -1; // a comes before b
+            } else if (a.status !== 'Applied' && b.status === 'Applied') {
+              return 1; // b comes before a
+            } else {
+              return 0; // no change in order
+            }
+          });
+
+          sortedJobs.forEach(job => { 
+            // Get the applied date as a JavaScript Date object
+            const appliedDate = new Date(job.applied_on);
+
+            // Calculate the difference in days
+            const today = new Date();
+            const daysAgo = Math.floor((today - appliedDate) / (1000 * 60 * 60 * 24));
+
+        %>
+          <tr>
+            <td><%= job.job_position %></td>
+            <td><%= job.company %></td>
+            <td style="color: <%= job.status === 'Applied' ? 'green' : (job.status === 'Rejected' ? 'red' : 'black') %>;"><%= job.status %></td>
+            <td>
+              <%= appliedDate.toLocaleDateString() %> 
+              (<%= daysAgo %> <%= daysAgo === 1 ? 'day' : 'days' %> ago)
+            </td>
+            <td><a href="<%= job.job_link %>" class="btn btn-primary">WEBLINK</a></td>
+            <td><a href="/jobs/edit/<%= job.job_id %>" class="btn btn-secondary">Edit</a></td>
+            <td><a href="/jobs/delete/<%= job.job_id %>" class="btn btn-danger">DELETE</a></td>
+          </tr>
+        <% }); %>
+      </tbody>
+    </table>
+    <div class="text-center">
+      <a href="/addjob" class="btn btn-success">Add a New Job</a>
+    </div>
+  </div>
+  </div>
+
+  <%- include('partials/footer.ejs') %>

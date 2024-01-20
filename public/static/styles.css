@@ -1,0 +1,24 @@
+.centered {
+    padding-top: 200px;
+    text-align: center;
+}
+
+body {
+    background-color: #E8ECEF;
+    background-image: url(../images/poster.jpg); 
+    background-size: cover;
+  height:100dvh;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    color: white;
+    background-color: rgba(1, 1, 1, 0.55); /* Background color for the footer */
+    padding: 1px 0;
+    text-align: center;
+  }
+  

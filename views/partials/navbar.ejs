@@ -1,0 +1,67 @@
+<nav class="navbar bg-dark navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">
+      <img src="images/logo.jpg" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
+      BiblioBuddy
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+        <% if (locals.userLoggedIn === false) { %>
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="/login">LOGIN</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/register">REGISTER</a>
+          </li>
+        <% } else { %>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Jobs
+            </a>
+            <ul class="dropdown-menu">
+              <li>
+                <a class="nav-link" href="/addjob">Add a Job</a>
+              </li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li>
+                <a class="nav-link" href="/jobs">APPLIED JOBS</a>
+              </li>
+              
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Books
+            </a>
+            <ul class="dropdown-menu">
+              <li>
+                <a class="nav-link" href="/addbook">Recommend a Book</a>
+              </li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li>
+                <a class="nav-link" href="/recommendations">RECOMMENDATIONS</a>
+              </li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li>
+                <a class="nav-link" href="/myrecommendations">My BOOKS</a>
+              </li>
+            </ul>
+          </li>
+          <!-- Move LOGOUT link to the right side -->
+          <li class="nav-item">
+            <a class="nav-link" href="/logout">LOGOUT</a>
+          </li>
+        <% } %>
+      </ul>
+    </div>
+  </div>
+</nav>

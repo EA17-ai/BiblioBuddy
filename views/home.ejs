@@ -1,0 +1,29 @@
+<%- include('partials/header.ejs') %>
+<% if (userLoggedIn) { %>
+    <div class="jumbotron centered">
+        <h1>SELECT A SERVICE</h1>
+        <a class="btn btn-light btn-lg" href="/addjob" role="button">Add a JOB</a>
+        <a class="btn btn-dark btn-lg" href="/addbook" role="button">Add a Book</a>
+        </div>
+
+    <% } else { %>
+        <div class="jumbotron centered">
+            <h1>RECOMMEND BOOKS</h1>
+            <a class="btn btn-light btn-lg" href="/register" role="button">Register</a>
+            <a class="btn btn-dark btn-lg" href="/login" role="button">Login</a>
+            </div>
+      
+<% } %>    
+
+
+
+
+
+
+
+
+
+
+
+
+<%- include('partials/footer.ejs') %>    

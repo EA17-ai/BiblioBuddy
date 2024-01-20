@@ -1,0 +1,62 @@
+<%- include('partials/header.ejs') %>
+<% if (locals.message) { %>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <%= message %>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    
+  
+<% } %>
+<% if (locals.jobInformation) { %>
+    <div class="container mt-5">
+        <h1>Edit Information</h1>
+    
+        <div class="row">
+          <div class="col-sm-8">
+            <div class="card">
+              <div class="card-body">
+      
+                 
+                <form action="/editjob" method="POST">
+                    <div class="form-group">
+                        <label for="jobId">Job ID</label>
+                        <input type="text" class="form-control" name="jobId" value="<%= jobInformation.job_id %>" disabled>
+                        <input type="hidden" name="jobId" value="<%= jobInformation.job_id %>">
+                      </div> 
+                  <div class="form-group">
+                    <label for="position">Job Position</label>
+                    <input type="text" class="form-control" name="position" value="<%= jobInformation.job_position %>" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="company">Company Name</label>
+                    <input type="text" class="form-control" name="company" value="<%= jobInformation.company %>" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="link">Job Description Link</label>
+                    <input type="text" class="form-control" name="link" value="<%= jobInformation.job_link %>" required>                    
+                  </div>
+                  <div class="form-group">
+                    <label for="star" class="form-label"></label>
+                    <select class="form-select" aria-label="Default select example" id="status" name="status"  required>
+                        <option disabled>Open this select menu</option>
+                        <option value="Applied" <%= jobInformation.status === 'Applied' ? 'selected' : '' %>>Applied</option>
+                        <option value="Rejected" <%= jobInformation.status === 'Rejected' ? 'selected' : '' %>>Rejected</option>    
+                   </select>
+                        
+                </div>
+                  <br>
+                  <button type="submit" class="btn btn-dark">Edit Job Information</button>
+                </form>
+      
+              </div>
+            </div>
+               
+    </div>
+    </div>
+    
+    
+<% } %>
+    
+      
+
+<%- include('partials/footer.ejs') %>    
