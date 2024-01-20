@@ -44,14 +44,18 @@ passport.use(
       usernameField: "email",
       passwordField: "password",
     },
-    async (username, password, done) => {
-      //console.log("Password is", password);
-      const response = await db.get("SELECT * from users where username=?", [
-        username,
-      ]);
+    async (email, password, done) => {
       try {
-        const user = response;
+        const user = await db.get("SELECT * FROM users WHERE username=?", [
+          email,
+        ]);
+        console.log(user)
+        if (!user) {
+          return done(null, false, { message: "User not found" });
+        }
+
         const passwordMatch = await bcrypt.compare(password, user.password);
+
         if (passwordMatch) {
           userLoggedIn = true;
           return done(null, user);
@@ -59,11 +63,16 @@ passport.use(
           return done(null, false, { message: "Password Mismatch" });
         }
       } catch (err) {
-        done(err);
+        return done(err);
       }
     }
   )
 );
+
+
+
+
+
 
 passport.serializeUser((user, done) => {
   done(null, user.id);
@@ -120,13 +129,15 @@ app.post(
 );
 
 app.get("/logout", checkifAuthenticated, (req, res) => {
-  userLoggedIn = false;
   req.logout(function (err) {
+    userLoggedIn = false;
     if (err) return next(err);
-    res.redirect("/");
+    
+    res.redirect("/login");
   }); // Log out the user
-  res.redirect("/login");
 });
+
+
 
 app.get("/recommendations", checkifAuthenticated, async (req, res) => {
   const books = await db.all("SELECT * FROM books");
@@ -256,6 +267,7 @@ function checkifAuthenticated(req, res, next) {
     res.redirect("/login");
   }
 }
+
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
